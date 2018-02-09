@@ -39,7 +39,7 @@ class String
     names = split('::')
     names.shift if names.empty? || names.first.empty?
     constant = Object
-    @logger.warn("***fan*** name==#{self} constant==#{context}")
+    $stdout.write("***fan*** name==#{self} constant==#{context}")
     names.each do |name|
       constant = constant.const_defined?(name, false) ? constant.const_get(name) : constant.const_missing(name)
     end
