@@ -15,5 +15,5 @@
 
 # Configuration for the riverbed aix agent framework
 ---
-#version: 10.14+
+version: 10.+
 repository_root: https://k8stest.blob.core.windows.net/cftest/
