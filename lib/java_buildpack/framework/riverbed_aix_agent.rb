@@ -30,7 +30,6 @@ module JavaBuildPack
 
       #javaagent args
       INSTANCE_NAME = 'instance_name'
-      private_constant :FILTER, :AGENTRT_PORT, :DSA_PORT, :INSTANCE_NAME
 
       #env
       AIX_INSTRUMENT_ALL = 'AIX_INSTRUMENT_ALL'
@@ -40,6 +39,16 @@ module JavaBuildPack
       #constants
       DSA_PORT_DEFAULT = 2111
       AGENTRT_PORT_DEFAULT = 7073
+
+
+      private_constant :FILTER, :AGENTRT_PORT,
+                       :DSA_PORT,
+                       :INSTANCE_NAME,
+                       :AIX_INSTRUMENT_ALL,
+                       :RVBD_AGENT_FILES,
+                       :RVBD_DSA_HOST,
+                       :DSA_PORT_DEFAULT,
+                       :AGENTRT_PORT_DEFAULT
 
       def initialize(context)
         super(context)
