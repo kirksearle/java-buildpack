@@ -20,6 +20,8 @@ require 'java_buildpack/component/versioned_dependency_component'
 require 'java_buildpack/framework'
 module JavaBuildPack
   module Framework
+
+    # Encapsulates the functionality for running the Riverbed AIX Agent support.
     class RiverbedAixAgent < JavaBuildpack::Component::VersionedDependencyComponent
       #jbp constants
       FILTER = /(?i)riverbed[-_]aix[-_]agent/
