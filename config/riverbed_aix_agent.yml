@@ -15,5 +15,5 @@
 
 # Configuration for the riverbed aix agent framework
 ---
-version: 10.14+
-repository_root: https://download.ruxit.com/agent/paas/cloudfoundry/java
+#version: 10.14+
+repository_root: https://k8stest.blob.core.windows.net/cftest/
