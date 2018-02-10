@@ -18,7 +18,7 @@
 require 'fileutils'
 require 'java_buildpack/component/versioned_dependency_component'
 require 'java_buildpack/framework'
-module JavaBuildPack
+module JavaBuildpack
   module Framework
 
     # Encapsulates the functionality for running the Riverbed AIX Agent support.
