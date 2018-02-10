@@ -71,9 +71,9 @@ module JavaBuildpack
 
       def release
         @logger.warn("***fan*** test, in release!!!")
-        credentials = @application.services.find_service(FILTER)['credentials']
-        setup_env credentials
-        setup_javaopts credentials
+        # credentials = @application.services.find_service(FILTER)['credentials']
+        # setup_env credentials
+        # setup_javaopts credentials
       end
 
       def supports?
