@@ -81,7 +81,7 @@ module JavaBuildpack
       end
 
       def setup_javaopts(credentials)
-        @droplet.java_opts.add_agentpath(agent_path)
+        #@droplet.java_opts.add_agentpath(agent_path)
         instance_name = credentials[INSTANCE_NAME]
         #TODO: remove this if not working, and use instance.name for agentpath arg instead
         @droplet.java_opts.add_system_property('riverbed.moniker',instance_name) unless instance_name.nil?
@@ -91,8 +91,8 @@ module JavaBuildpack
         set_env_var(DSA_PORT.upcase,credentials[DSA_PORT] || DSA_PORT_DEFAULT)
         set_env_var(AGENTRT_PORT.upcase,credentials[AGENTRT_PORT] || AGENTRT_PORT_DEFAULT)
         set_env_var(AIX_INSTRUMENT_ALL,1)
-        #set_env_var(RVBD_AGENT_FILES,1)
-        #set_env_var(RVBD_DSA_HOST, @application.environment['CF_INSTANCE_IP'])
+        set_env_var(RVBD_AGENT_FILES,1)
+        set_env_var(RVBD_DSA_HOST, @application.environment['CF_INSTANCE_IP'])
       end
 
       def set_env_var(key, val)
