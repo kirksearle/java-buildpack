@@ -23,10 +23,6 @@ describe JavaBuildpack::Framework::RiverbedAixAgent do
   include_context 'with component help'
 
   context do
-    it 'detects riverbed-aix-agent'
-  end
-
-  context do
     it 'does not support riverbed-aix-agent service' do
       expect(component.supports?).to be false
     end
