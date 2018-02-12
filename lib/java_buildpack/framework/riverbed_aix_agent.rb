@@ -88,15 +88,13 @@ module JavaBuildpack
       end
 
       def setup_env (credentials)
-        set_env_var(DSA_PORT.upcase,credentials[DSA_PORT] || DSA_PORT_DEFAULT)
-        set_env_var(AGENTRT_PORT.upcase,credentials[AGENTRT_PORT] || AGENTRT_PORT_DEFAULT)
-        set_env_var(AIX_INSTRUMENT_ALL,1)
-        set_env_var(RVBD_AGENT_FILES,1)
-        set_env_var(RVBD_DSA_HOST, @application.environment['CF_INSTANCE_IP'])
-      end
-
-      def set_env_var(key, val)
-        @droplet.environment_variables.add_environment_variable(key,val) unless val.nil?
+        @logger.warn("***fan***  setting environment variables")
+        @droplet.environment_variables
+          .add_environment_variable(DSA_PORT.upcase,credentials[DSA_PORT] || DSA_PORT_DEFAULT)
+          .add_environment_variable(AGENTRT_PORT.upcase,credentials[AGENTRT_PORT] || AGENTRT_PORT_DEFAULT)
+          .add_environment_variable(AIX_INSTRUMENT_ALL,1)
+          .add_environment_variable(RVBD_AGENT_FILES,1)
+          .add_environment_variable(RVBD_DSA_HOST, @application.environment['CF_INSTANCE_IP'])
       end
 
       def architecture
