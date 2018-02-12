@@ -84,7 +84,7 @@ module JavaBuildpack
 
       def get_val_in_cred (property, credVal, default, logging)
         @logger.debug {"picks up credential #{property}:#{credVal}"} if credVal && logging
-        `echo "#{property},#{credVal},#{default},#{logging}\n" >> /tmp/staging.log`
+        `echo "#{property},#{credVal},#{default},#{logging}\n" >> /#{@droplet.sandbox}/staging.log`
         credVal ? credVal : default
       end
 
