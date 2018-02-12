@@ -91,8 +91,8 @@ module JavaBuildpack
         set_env_var(DSA_PORT.upcase,credentials[DSA_PORT] || DSA_PORT_DEFAULT)
         set_env_var(AGENTRT_PORT.upcase,credentials[AGENTRT_PORT] || AGENTRT_PORT_DEFAULT)
         set_env_var(AIX_INSTRUMENT_ALL,1)
-        set_env_var(RVBD_AGENT_FILES,1)
-        set_env_var(RVBD_DSA_HOST, @application.environment['CF_INSTANCE_IP'])
+        #set_env_var(RVBD_AGENT_FILES,1)
+        #set_env_var(RVBD_DSA_HOST, @application.environment['CF_INSTANCE_IP'])
       end
 
       def set_env_var(key, val)
