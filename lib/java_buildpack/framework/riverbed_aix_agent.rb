@@ -55,12 +55,9 @@ module JavaBuildpack
       def initialize(context)
         super(context)
         @logger = JavaBuildpack::Logging::LoggerFactory.instance.get_logger RiverbedAixAgent
-        @logger.warn("***fan*** in function initialize(context), logger just initialized!")
       end
 
       def compile
-        @logger.warn("***fan*** test, in compile!!! droplet = #{@droplet.sandbox}, java_home=#{@droplet.java_home}, version=#{@version}, application=#{@application},\
-        uri=#{@uri}, component_name=#{@component_name}")
         download_zip(false, @droplet.sandbox, @component_name)
         # TODO: check for CF guys' response about the usage of this utility...
         # TODO: why can't i just zip resources altogether with other binaries?
@@ -70,7 +67,6 @@ module JavaBuildpack
       end
 
       def release
-        @logger.warn("***fan*** test, in release!!!")
         credentials = @application.services.find_service(FILTER)['credentials']
         setup_env credentials
         setup_javaopts credentials
@@ -82,18 +78,24 @@ module JavaBuildpack
 
       def setup_javaopts(credentials)
         @droplet.java_opts.add_agentpath(agent_path)
-        instance_name = credentials[INSTANCE_NAME]
-        #TODO: remove this if not working, and use instance.name for agentpath arg instead
+        instance_name = get_val_in_cred(INSTANCE_NAME,credentials[INSTANCE_NAME],nil,true)
         @droplet.java_opts.add_system_property('riverbed.moniker',instance_name) unless instance_name.nil?
+      end
+
+      def get_val_in_cred (property, credVal, default, logging)
+        @logger.debug {"picks up credential #{property}:#{credVal}"} if credVal && logging
+        credVal ? credVal : default
       end
 
       def setup_env (credentials)
         @droplet.environment_variables
-          .add_environment_variable(DSA_PORT.upcase,credentials[DSA_PORT] || DSA_PORT_DEFAULT)
-          .add_environment_variable(AGENTRT_PORT.upcase,credentials[AGENTRT_PORT] || AGENTRT_PORT_DEFAULT)
+          .add_environment_variable(DSA_PORT.upcase, get_val_in_cred(DSA_PORT.upcase, credentials[DSA_PORT], DSA_PORT_DEFAULT, true))
+          .add_environment_variable(AGENTRT_PORT.upcase, get_val_in_cred(AGENTRT_PORT.upcase, credentials[AGENTRT_PORT], AGENTRT_PORT_DEFAULT, true))
           .add_environment_variable(AIX_INSTRUMENT_ALL,1)
           .add_environment_variable(RVBD_AGENT_FILES,1)
-          .add_environment_variable(RVBD_DSA_HOST, @application.environment['CF_INSTANCE_IP'])
+        dsa_host = @application.environment['CF_INSTANCE_IP']
+        raise "expect CF_INSTANCE_IP to be set otherwise dsa_host is unavailable" unless dsa_host
+        @droplet.environment_variables.add_environment_variable(RVBD_DSA_HOST, dsa_host)
       end
 
       def architecture
