@@ -81,7 +81,7 @@ module JavaBuildpack
       end
 
       def setup_javaopts(credentials)
-        #@droplet.java_opts.add_agentpath(agent_path)
+        @droplet.java_opts.add_agentpath(agent_path)
         instance_name = credentials[INSTANCE_NAME]
         #TODO: remove this if not working, and use instance.name for agentpath arg instead
         @droplet.java_opts.add_system_property('riverbed.moniker',instance_name) unless instance_name.nil?
