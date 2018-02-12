@@ -39,8 +39,8 @@ module JavaBuildpack
       RVBD_DSA_HOST = 'RVBD_DSAHOST'
 
       #constants
-      DSA_PORT_DEFAULT = '2111'
-      AGENTRT_PORT_DEFAULT = '7073'
+      DSA_PORT_DEFAULT = 2111
+      AGENTRT_PORT_DEFAULT = 7073
 
 
       private_constant :FILTER, :AGENTRT_PORT,
@@ -88,14 +88,12 @@ module JavaBuildpack
       end
 
       def setup_env (credentials)
-        @logger.warn("***fan***  setting environment variables")
         @droplet.environment_variables
           .add_environment_variable(DSA_PORT.upcase,credentials[DSA_PORT] || DSA_PORT_DEFAULT)
           .add_environment_variable(AGENTRT_PORT.upcase,credentials[AGENTRT_PORT] || AGENTRT_PORT_DEFAULT)
-          .add_environment_variable(AIX_INSTRUMENT_ALL,'1')
-          .add_environment_variable(RVBD_AGENT_FILES,'1')
-          .add_environment_variable(RVBD_DSA_HOST, "#{@application.environment['CF_INSTANCE_IP']}")
-        `echo #{@application.environment['CF_INSTANCE_IP']} >> ./fan.log`
+          .add_environment_variable(AIX_INSTRUMENT_ALL,1)
+          .add_environment_variable(RVBD_AGENT_FILES,1)
+          .add_environment_variable(RVBD_DSA_HOST, @application.environment['CF_INSTANCE_IP'])
       end
 
       def architecture
