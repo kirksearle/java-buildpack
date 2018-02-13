@@ -24,7 +24,7 @@ module JavaBuildpack
     # Encapsulates the functionality for running the Riverbed AIX Agent support.
     class RiverbedAppinternalsAgent < JavaBuildpack::Component::VersionedDependencyComponent
       #jbp constants
-      FILTER = /(?i)riverbed[-_]aix[-_]agent/
+      FILTER = /(?i)appinternals/
 
       #credentials key
       DSA_PORT        = 'dsa_port'
