@@ -22,7 +22,7 @@ module JavaBuildpack
   module Framework
 
     # Encapsulates the functionality for running the Riverbed AIX Agent support.
-    class RiverbedAixAgent < JavaBuildpack::Component::VersionedDependencyComponent
+    class RiverbedAppinternalsAgent < JavaBuildpack::Component::VersionedDependencyComponent
       #jbp constants
       FILTER = /(?i)riverbed[-_]aix[-_]agent/
 
@@ -54,7 +54,7 @@ module JavaBuildpack
 
       def initialize(context)
         super(context)
-        @logger = JavaBuildpack::Logging::LoggerFactory.instance.get_logger RiverbedAixAgent
+        @logger = JavaBuildpack::Logging::LoggerFactory.instance.get_logger RiverbedAppinternalsAgent
       end
 
       def compile

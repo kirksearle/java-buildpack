@@ -17,9 +17,9 @@
 
 require 'spec_helper'
 require 'component_helper'
-require 'java_buildpack/framework/riverbed_aix_agent'
+require 'java_buildpack/framework/riverbed_appinternals_agent'
 
-describe JavaBuildpack::Framework::RiverbedAixAgent do
+describe JavaBuildpack::Framework::RiverbedAppinternalsAgent do
   include_context 'with component help'
 
   context do
