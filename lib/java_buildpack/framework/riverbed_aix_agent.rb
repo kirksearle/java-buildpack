@@ -27,11 +27,11 @@ module JavaBuildpack
       FILTER = /(?i)riverbed[-_]aix[-_]agent/
 
       #credentials key
-      DSA_PORT = 'dsa_port'
-      AGENTRT_PORT = 'agentrt_port' #TODO: change "AGENTRT" once we have a name
+      DSA_PORT        = 'dsa_port'
+      RVBD_AGENT_PORT = 'rvbd_agent_port'
 
       #javaagent args
-      INSTANCE_NAME = 'instance_name'
+      RVBD_MONIKER = 'rvbd_moniker'
 
       #env
       AIX_INSTRUMENT_ALL = 'AIX_INSTRUMENT_ALL'
@@ -39,18 +39,18 @@ module JavaBuildpack
       RVBD_DSA_HOST = 'RVBD_DSAHOST'
 
       #constants
-      DSA_PORT_DEFAULT = 2111
-      AGENTRT_PORT_DEFAULT = 7073
+      DSA_PORT_DEFAULT        = 2111
+      RVBD_AGENT_PORT_DEFAULT = 7073
 
 
-      private_constant :FILTER, :AGENTRT_PORT,
+      private_constant :FILTER, :RVBD_AGENT_PORT,
                        :DSA_PORT,
-                       :INSTANCE_NAME,
+                       :RVBD_MONIKER,
                        :AIX_INSTRUMENT_ALL,
                        :RVBD_AGENT_FILES,
                        :RVBD_DSA_HOST,
                        :DSA_PORT_DEFAULT,
-                       :AGENTRT_PORT_DEFAULT
+                       :RVBD_AGENT_PORT_DEFAULT
 
       def initialize(context)
         super(context)
@@ -59,9 +59,6 @@ module JavaBuildpack
 
       def compile
         download_zip(false, @droplet.sandbox, @component_name)
-        # TODO: check for CF guys' response about the usage of this utility...
-        # TODO: why can't i just zip resources altogether with other binaries?
-        # TODO: is this the place for a config file??
         @droplet.copy_resources
 
       end
@@ -78,8 +75,8 @@ module JavaBuildpack
 
       def setup_javaopts(credentials)
         @droplet.java_opts.add_agentpath(agent_path)
-        instance_name = get_val_in_cred(INSTANCE_NAME,credentials[INSTANCE_NAME],nil,true)
-        @droplet.java_opts.add_system_property('riverbed.moniker',instance_name) unless instance_name.nil?
+        rvbd_moniker = get_val_in_cred(RVBD_MONIKER, credentials[RVBD_MONIKER], nil, true)
+        @droplet.java_opts.add_system_property('riverbed.moniker',rvbd_moniker) unless rvbd_moniker.nil?
       end
 
       def get_val_in_cred (property, credVal, default, logging)
@@ -91,7 +88,7 @@ module JavaBuildpack
       def setup_env (credentials)
         @droplet.environment_variables
           .add_environment_variable(DSA_PORT.upcase, get_val_in_cred(DSA_PORT.upcase, credentials[DSA_PORT], DSA_PORT_DEFAULT, true))
-          .add_environment_variable(AGENTRT_PORT.upcase, get_val_in_cred(AGENTRT_PORT.upcase, credentials[AGENTRT_PORT], AGENTRT_PORT_DEFAULT, true))
+          .add_environment_variable(RVBD_AGENT_PORT.upcase, get_val_in_cred(RVBD_AGENT_PORT.upcase, credentials[RVBD_AGENT_PORT], RVBD_AGENT_PORT_DEFAULT, true))
           .add_environment_variable(AIX_INSTRUMENT_ALL,1)
           .add_environment_variable(RVBD_AGENT_FILES,1)
         dsa_host = @application.environment['CF_INSTANCE_IP']
