@@ -42,6 +42,7 @@ The framework can be configured by modifying the [`config/riverbed_appinternals_
 | ---- | -----------
 | `repository_root` | The URL of the Riverbed Appinternals repository index ([details][repositories]).
 | `version` | The version of Riverbed Appinternals to use.
+
 [Configuration and Extension]: ../README.md#configuration-and-extension
 [repositories]: extending-repositories.md
 [version syntax]: extending-repositories.md#version-syntax-and-ordering
