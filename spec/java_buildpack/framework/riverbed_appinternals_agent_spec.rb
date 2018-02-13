@@ -34,7 +34,7 @@ describe JavaBuildpack::Framework::RiverbedAppinternalsAgent do
 
   context do
     let(:vcap_services) do
-      { 'test-service-n/a' => [{ 'name'        => 'riverbed_aix_agent', 'label' => 'test-service-n/a',
+      { 'test-service-n/a' => [{ 'name'        => 'appinternals_test_service', 'label' => 'test-service-n/a',
                                  'tags'        => ['test-service-tag'], 'plan' => 'test-plan',
                                  'credentials' => { 'uri' => 'test-uri' } }] }
     end
@@ -43,7 +43,7 @@ describe JavaBuildpack::Framework::RiverbedAppinternalsAgent do
     end
 
     it 'detects with riverbed-aix-agent service' do
-      expect(component.detect).to eq("riverbed-aix-agent=#{version}")
+      expect(component.detect).to eq("riverbed-appinternals-agent=#{version}")
     end
     context do
       it 'unzip riverbed aix agent zip file' ,
@@ -78,22 +78,22 @@ describe JavaBuildpack::Framework::RiverbedAppinternalsAgent do
       it 'sets default values to java opts' do
         component.release
         expect(environment_variables).to include('DSA_PORT=2111')
-        expect(environment_variables).to include('AGENTRT_PORT=7073')
+        expect(environment_variables).to include('RVBD_AGENT_PORT=7073')
         expect(environment_variables).to include('AIX_INSTRUMENT_ALL=1')
         expect(environment_variables).to include('RVBD_AGENT_FILES=1')
         expect(environment_variables).to include('RVBD_DSAHOST=1.2.3.4')
-        expect(java_opts).to include("-agentpath:$PWD/.java-buildpack/riverbed_aix_agent/agent/lib/librpilj64.so")
+        expect(java_opts).to include("-agentpath:$PWD/.java-buildpack/riverbed_appinternals_agent/agent/lib/librpilj64.so")
       end
     end
 
     context do
       before do
-        allow(services).to receive(:find_service).and_return('credentials' => {'dsa_port'=>'10000','agentrt_port'=>'20000', 'instance_name'=>'special_name'})
+        allow(services).to receive(:find_service).and_return('credentials' => {'dsa_port'=>'10000','rvbd_agent_port'=>'20000', 'rvbd_moniker'=>'special_name'})
       end
       it 'sets customized values to java opts' do
         component.release
         expect(environment_variables).to include('DSA_PORT=10000')
-        expect(environment_variables).to include('AGENTRT_PORT=20000')
+        expect(environment_variables).to include('RVBD_AGENT_PORT=20000')
         expect(java_opts).to include("-Driverbed.moniker=special_name")
       end
     end
