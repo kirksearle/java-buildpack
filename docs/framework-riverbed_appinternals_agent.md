@@ -36,7 +36,12 @@ cf bind-service spring-music spring-music-appinternals
 ## Configuration
 For general information on configuring the buildpack, including how to specify configuration values through environment variables, refer to [Configuration and Extension][].
 
+The framework can be configured by modifying the [`config/riverbed_appinternals_agent.yml`][] file in the buildpack fork.  The framework uses the [`Repository` utility support][repositories] and so it supports the [version syntax][] defined there.
+
 | Name | Description
 | ---- | -----------
 | `repository_root` | The URL of the Riverbed Appinternals repository index ([details][repositories]).
 | `version` | The version of Riverbed Appinternals to use.
+[Configuration and Extension]: ../README.md#configuration-and-extension
+[repositories]: extending-repositories.md
+[version syntax]: extending-repositories.md#version-syntax-and-ordering
