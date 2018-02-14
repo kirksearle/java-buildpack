@@ -27,7 +27,7 @@ module JavaBuildpack
       FILTER = /(?i)appinternals/
 
       #credentials key
-      DSA_PORT        = 'dsa_port'
+      RVBD_DSA_PORT = 'rvbd_dsa_port'
       RVBD_AGENT_PORT = 'rvbd_agent_port'
 
       #javaagent args
@@ -37,6 +37,7 @@ module JavaBuildpack
       AIX_INSTRUMENT_ALL = 'AIX_INSTRUMENT_ALL'
       RVBD_AGENT_FILES = 'RVBD_AGENT_FILES'
       RVBD_DSA_HOST = 'RVBD_DSAHOST'
+      DSA_PORT        = 'DSA_PORT'
 
       #constants
       DSA_PORT_DEFAULT        = 2111
@@ -50,7 +51,8 @@ module JavaBuildpack
                        :RVBD_AGENT_FILES,
                        :RVBD_DSA_HOST,
                        :DSA_PORT_DEFAULT,
-                       :RVBD_AGENT_PORT_DEFAULT
+                       :RVBD_AGENT_PORT_DEFAULT,
+                       :RVBD_DSA_PORT
 
       def initialize(context)
         super(context)
@@ -87,7 +89,7 @@ module JavaBuildpack
 
       def setup_env (credentials)
         @droplet.environment_variables
-          .add_environment_variable(DSA_PORT.upcase, get_val_in_cred(DSA_PORT.upcase, credentials[DSA_PORT], DSA_PORT_DEFAULT, true))
+          .add_environment_variable(DSA_PORT.upcase, get_val_in_cred(RVBD_DSA_PORT, credentials[RVBD_DSA_PORT], DSA_PORT_DEFAULT, true))
           .add_environment_variable(RVBD_AGENT_PORT.upcase, get_val_in_cred(RVBD_AGENT_PORT.upcase, credentials[RVBD_AGENT_PORT], RVBD_AGENT_PORT_DEFAULT, true))
           .add_environment_variable(AIX_INSTRUMENT_ALL,1)
           .add_environment_variable(RVBD_AGENT_FILES,1)

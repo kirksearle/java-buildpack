@@ -88,7 +88,7 @@ describe JavaBuildpack::Framework::RiverbedAppinternalsAgent do
 
     context do
       before do
-        allow(services).to receive(:find_service).and_return('credentials' => {'dsa_port'=>'10000','rvbd_agent_port'=>'20000', 'rvbd_moniker'=>'special_name'})
+        allow(services).to receive(:find_service).and_return('credentials' => {'rvbd_dsa_port'=>'10000','rvbd_agent_port'=>'20000', 'rvbd_moniker'=>'special_name'})
       end
       it 'sets customized values to java opts' do
         component.release
