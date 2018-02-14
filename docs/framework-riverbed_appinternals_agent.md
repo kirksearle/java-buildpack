@@ -46,3 +46,4 @@ The framework can be configured by modifying the [`config/riverbed_appinternals_
 [Configuration and Extension]: ../README.md#configuration-and-extension
 [repositories]: extending-repositories.md
 [version syntax]: extending-repositories.md#version-syntax-and-ordering
+[`config/riverbed_appinternals_agent.yml`]: ../config/riverbed_appinternals_agent.yml
