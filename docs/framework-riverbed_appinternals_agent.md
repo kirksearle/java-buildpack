@@ -33,7 +33,7 @@ Change rvbd_dsa_port and rvbd_agent_port only in case of a port conflict with ot
 ### Example Creating Riverbed Appinternals User-Provided Service Payload
 
 ``` 
-cf cups spring-music-appinternals -p '{"dsa_port":"9999","rvbd_moniker":"my_app"}'
+cf cups spring-music-appinternals -p '{"rvbd_dsa_port":"9999","rvbd_moniker":"my_app"}'
 cf bind-service spring-music spring-music-appinternals
 ```
 
