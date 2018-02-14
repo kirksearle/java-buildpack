@@ -21,10 +21,13 @@ When binding Riverbed Appinternals Agent service using a user-provided service, 
 
 | Name | Description
 | ---- | -----------
-| `dsa_port` | (Optional)The Data Sampling Agent(DSA) port to connect to.
-| `rvbd_agent_port` | (Optional) The riverbed agent port to connect to.
+| `rvbd_dsa_port` | (Optional)The Data Sampling Agent(DSA) port to connect to. default 2111.
+| `rvbd_agent_port` | (Optional) The riverbed agent port to connect to. default 7073.
 | `rvbd_moniker` | (Optional) The moniker name of the application.
 
+
+**NOTE**
+Change rvbd_dsa_port and rvbd_agent_port only in case of a port conflict with other apps
 
 ### Example Creating Riverbed Appinternals User-Provided Service Payload
 
